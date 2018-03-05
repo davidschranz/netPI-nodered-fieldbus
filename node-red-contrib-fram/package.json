@@ -1,0 +1,40 @@
+{
+  "name": "node-red-contrib-fram",
+  "version": "1.0.0",
+  "description": "Node-RED noded to access FRAM of netPI RTE 3",
+  "dependencies": {
+    "i2c": "^0.2.3"
+  },
+  "main": "fram.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node-red",
+    "i2c",
+    "fram",
+    "fm24cl64b",
+    "netpi",
+    "rpi3",
+    "raspberry"
+  ],
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/Hilscher/netPI-nodered-fram"
+  },
+  "node-red": {
+    "nodes": {
+      "netpi-fram": "fram.js"
+    }
+  },
+  "author": {
+    "name": "hilschernetpi",
+    "email": "netpi@hilscher.com",
+    "url": "https://github.com/Hilscher/netPI-nodered-fram"
+  },
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": ""
+  }
+}

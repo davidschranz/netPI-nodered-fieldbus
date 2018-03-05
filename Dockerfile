@@ -14,11 +14,11 @@ ENV HILSCHERNETPI_NODERED_FB_VERSION 1.0.0.0
 
 #copy files
 COPY "./init.d/*" /etc/init.d/
-COPY "./node-red-contrib-fieldbus/*" "./node-red-contrib-fieldbus/lib/*" "./firmwares/*" "./driver/*" "./web-configurator-fieldbus/*" /tmp/
+COPY "./node-red-contrib-fieldbus/*" "./node-red-contrib-fieldbus/lib/*" "./firmwares/*" "./driver/*" "./web-configurator-fieldbus/*" "./node-red-contrib-fram/*" /tmp/
 
 #do installation
 RUN apt-get update  \
-    && apt-get install curl libboost-filesystem1.62-dev libboost-date-time1.62-dev libjansson-dev p7zip-full build-essential \
+    && apt-get install curl libboost-filesystem1.62-dev libboost-date-time1.62-dev libjansson-dev p7zip-full build-essential python-dev \
 #install node.js V8.x.x
     && curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -  \
     && apt-get install -y nodejs  \
@@ -54,6 +54,11 @@ RUN apt-get update  \
 #install netx firmwares from zip
     && mkdir /opt/cifx/deviceconfig/FW/channel0 \
     && 7z -tzip -r -v: x "/tmp/FWPool.zip" -o/root/.node-red \
+#install fram nodes
+    && mkdir /usr/lib/node_modules/node-red-contrib-fram \
+    && mv /tmp/fram.js /tmp/fram.html /tmp/package.json -t /usr/lib/node_modules/node-red-contrib-fram \
+    && cd /usr/lib/node_modules/node-red-contrib-fram \
+    && npm install \
 #clean up
     && rm -rf /tmp/* \
     && apt-get remove p7zip-full curl \

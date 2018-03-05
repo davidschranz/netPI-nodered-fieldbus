@@ -1,0 +1,99 @@
+<!--
+  Copyright 2013,2014 IBM Corp.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="fram read">
+    <div class="form-row">
+        <label for="node-input-offset"><i class="fa fa-random"></i> Offset</label>
+        <input type="number" id="node-input-offset" class="fram-read-offset" placeholder="[msg.offset]">
+    </div>
+   <div class="form-row">
+        <label for="node-input-amount"><i class="fa fa-random"></i> Amount</label>
+        <input type="number" id="node-input-amount" class="fram-read-amount" placeholder="[msg.amount]">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="fram read">
+    <p>Reads data from netPI's 8kByte FRAM.</p>
+    <p>Offset address: specified in the node's arguments or set dynamically using the <code>msg.offset</code> value in the input message.</p>
+    <p>Data amount: specified in the node's arguments or set dynamically using the <code>msg.amount</code> value in the input message.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('fram read',{
+        category: 'netpi',
+        defaults: {
+            name: {value:""},
+            offset: {value:"",required:false},
+            amount: {value:"",required:false}
+        },
+        color:"#0087C9",
+        inputs:1,
+        outputs:1,
+        icon: "serial.png",
+	      paletteLabel: "fram read",
+        label: function() {
+            return this.name||"fram read";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
+
+<script type="text/x-red" data-template-name="fram write">
+    <div class="form-row">
+        <label for="node-input-offset"><i class="fa fa-random"></i> Offset</label>
+        <input type="number" id="node-input-offset" class="fram-write-offset" placeholder="[msg.offset]" min=0 max=127>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="fram write">
+    <p>Writes data to netPI's 8kByte FRAM.</p>
+    <p>Offset address: specified in the node's arguments or set dynamically using the <code>msg.offset</code> value in the input message.</p>
+    <p>Data: set dynamically using the <code>msg.payload</code> value as array [a,b,...] in the input message.</p>
+
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('fram write',{
+        category: 'netpi',
+        defaults: {
+            name: {value:""},
+            offset: {value:"",required:false},
+        },
+	color:"#0087C9",
+        inputs:1,
+        outputs:0,
+        icon: "serial.png",
+        paletteLabel: "fram write",
+        align: "right",
+        label: function() {
+            return this.name||"fram write";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
