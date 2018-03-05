@@ -14,7 +14,8 @@ ENV HILSCHERNETPI_NODERED_FB_VERSION 1.0.0.0
 
 #copy files
 COPY "./init.d/*" /etc/init.d/
-COPY "./node-red-contrib-fieldbus/*" "./node-red-contrib-fieldbus/lib/*" "./firmwares/*" "./driver/*" "./web-configurator-fieldbus/*" "./node-red-contrib-fram/*" /tmp/
+COPY "./node-red-contrib-fieldbus/*" "./node-red-contrib-fieldbus/lib/*" "./firmwares/*" "./driver/*" "./web-configurator-fieldbus/*" /tmp/
+COPY "./node-red-contrib-fram/*" /tmp/fram/
 
 #do installation
 RUN apt-get update  \
@@ -56,7 +57,7 @@ RUN apt-get update  \
     && 7z -tzip -r -v: x "/tmp/FWPool.zip" -o/root/.node-red \
 #install fram nodes
     && mkdir /usr/lib/node_modules/node-red-contrib-fram \
-    && mv /tmp/fram.js /tmp/fram.html /tmp/package.json -t /usr/lib/node_modules/node-red-contrib-fram \
+    && mv /tmp/fram/fram.js /tmp/fram/fram.html /tmp/fram/package.json -t /usr/lib/node_modules/node-red-contrib-fram \
     && cd /usr/lib/node_modules/node-red-contrib-fram \
     && npm install \
 #clean up
