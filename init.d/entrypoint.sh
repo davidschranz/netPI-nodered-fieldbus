@@ -8,6 +8,8 @@ term_handler() {
 
   /etc/init.d/webconfig.sh stop
 
+  /etc/init.d/ssh stop
+
   exit 143; # 128 + 15 -- SIGTERM
 }
 
@@ -18,6 +20,8 @@ trap 'kill ${!}; term_handler' SIGINT SIGKILL SIGTERM SIGQUIT SIGTSTP SIGSTOP SI
 /opt/cifx/checkdevicetype | xargs /etc/init.d/nodered.sh start
 
 /etc/init.d/webconfig.sh start
+
+/etc/init.d/ssh start
 
 # wait forever not to exit the container
 while true

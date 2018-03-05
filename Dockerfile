@@ -60,6 +60,12 @@ RUN apt-get update  \
     && mv /tmp/fram/fram.js /tmp/fram/fram.html /tmp/fram/package.json -t /usr/lib/node_modules/node-red-contrib-fram \
     && cd /usr/lib/node_modules/node-red-contrib-fram \
     && npm install \
+#install ssh
+    && apt-get install -y git openssh-server \
+    && echo 'root:root' | chpasswd \
+    && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+    && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
+    && mkdir /var/run/sshd \
 #clean up
     && rm -rf /tmp/* \
     && apt-get remove p7zip-full curl \
@@ -71,7 +77,7 @@ RUN apt-get update  \
 ENTRYPOINT ["/etc/init.d/entrypoint.sh"]
 
 #Node-RED and fieldbus web configurator ports
-EXPOSE 1880 9000
+EXPOSE 1880 9000 22
 
 #set STOPSGINAL
 STOPSIGNAL SIGTERM
